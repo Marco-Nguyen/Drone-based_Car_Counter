@@ -161,7 +161,7 @@ def main(_argv):
         # allowed_classes = list(class_names.values())
         
         # custom allowed classes (uncomment line below to customize tracker for only people)
-        allowed_classes = ['car']
+        allowed_classes = ['CAR']
 
         # loop through objects and use class index to get class name, allow only classes in allowed_classes list
         names = []
@@ -209,11 +209,18 @@ def main(_argv):
             class_name = track.get_class()
             
         # draw bbox on screen
-            color = colors[int(track.track_id) % len(colors)]
-            color = [i * 255 for i in color]
+        #     color = colors[int(track.track_id) % len(colors)]
+        #     color = [i * 255 for i in color]
+            color = (255, 0, 0)
             cv2.rectangle(frame, (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), color, 2)
-            cv2.rectangle(frame, (int(bbox[0]), int(bbox[1]-30)), (int(bbox[0])+(len(class_name)+len(str(track.track_id)))*17, int(bbox[1])), color, -1)
-            cv2.putText(frame, class_name + "-" + str(track.track_id), (int(bbox[0]), int(bbox[1]-10)), 0, 0.75, (255, 255, 255), 2)
+            cv2.rectangle(frame, (int(bbox[0]), int(bbox[3]-30)), (int(bbox[0])+(len(str(track.track_id)))*17, int(bbox[3])), color, -1)
+
+            inside_box = frame[int(bbox[1]):int(bbox[3]), int(bbox[0]):int(bbox[2]), :]
+            red_rect = np.zeros(inside_box.shape, dtype=np.uint8)
+            red_rect[:, :, 0] += 255
+            frame[int(bbox[1]):int(bbox[3]), int(bbox[0]):int(bbox[2])] = cv2.addWeighted(inside_box, 0.8, red_rect, 0.2, 1.0)
+
+            cv2.putText(frame, str(track.track_id), (int(bbox[0]), int(bbox[3]-10)), 0, 0.75, (255, 255, 255), 2)
             cv2.putText(frame, "Marco Nguyen", (850, 100), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 2)
             count = track.track_id
 

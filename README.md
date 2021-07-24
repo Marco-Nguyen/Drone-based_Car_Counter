@@ -11,7 +11,7 @@ This is my project for  [Drone Surveillance Contest](https://www.computervision.
 Here are the steps I used in this project:  
 1. Train YOLOv4 for custom dataset. Here I used frames extracted from the video. If you want to access to the dataset, please contact me.  
 2. Once you get the weights, infer it to the video (without counting) to test the weights. My weights achieve up to 98% accuracy. The code to infer the weights is Car_prediction_(no_counter).py  
-![alt text](https://github.com/Marco-Nguyen/Drone-based_Car_Counter/blob/main/Test%20weight.png)  
+
 3. For the counter part, I find an useful technique called "Deepsort". I cloned the work of [theAIGuys](https://github.com/theAIGuysCode/yolov4-deepsort). Check out his guide to implement to your project.  
 4. As I have my own custom weights, I used this [link](https://github.com/theAIGuysCode/tensorflow-yolov4-tflite) to change to my weights.    
 5. If you have trouble finding the correct code to use, here what I used.  
